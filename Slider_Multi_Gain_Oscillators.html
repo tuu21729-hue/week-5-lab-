@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <title>ARRRGH!</title>
+    </head>
+<body>
+
+    <input id = "gain1" type="range" min="0" max="1" step="0.001" value="0.0"><label id="gainDisplay1">GainLevel_1</label>
+    <input id = "gain2" type="range" min="0" max="1" step="0.001" value="0.0"><label id="gainDisplay2">GainLevel_2</label>
+   
+    <script>
+        const ctx = new AudioContext();
+        ctx.suspend();
+
+        const osc1 = new OscillatorNode(ctx);
+        let freq = 110
+        osc1.frequency.value = freq
+       
+        const osc2 = new OscillatorNode(ctx);
+        osc2.frequency.value = freq * 1.01
+        const osc3 = new OscillatorNode(ctx);
+        osc3.frequency.value = freq * 0.99
+        
+        
+        
+        const gain = new GainNode(ctx);
+        gain.gain.value = 0.1;
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        osc3.connect(gain);
+        gain.connect(ctx.destination);
+        osc1.start();
+        osc2.start();
+        osc3.start();
+
+        const slider1 = document.querySelector("#gain1");
+        slider1.addEventListener("input", () => {
+            ctx.resume();
+        gain.gain.value = Number(slider1.value);
+        document.querySelector("gainDisplay1").textContent = slider1.value;
+    });
+
+        //const ctx = new AudioContext();
+        //ctx.suspend();
+
+        const osc4 = new OscillatorNode(ctx);
+        let freq2 = freq*2
+        osc4.frequency.value = freq2
+       
+        const osc5 = new OscillatorNode(ctx);
+        osc5.frequency.value = freq2 * 1.01
+        const osc6 = new OscillatorNode(ctx);
+        osc6.frequency.value = freq2 * 0.99
+        
+        
+        
+        const gain2 = new GainNode(ctx);
+        gain2.gain.value = 0.1;
+
+        osc4.connect(gain2);
+        osc5.connect(gain2);
+        osc6.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc4.start();
+        osc5.start();
+        osc6.start();
+
+        const slider2 = document.querySelector("#gain2");
+        slider2.addEventListener("input", () => {
+            ctx.resume();
+        gain2.gain.value = Number(slider2.value);
+        document.querySelector("gainDisplay2").textContent = slider2.value;
+
+        });
+
+
+    
+    </script>
+
+    </body>
+    </html>

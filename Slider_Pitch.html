@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta chartset="UTF-8">
+        <title>SliderPitch</title>
+    </head>
+<body>
+    <input id = "freq" type="range" min ="100" max = "1000" value="440"><label id = "freqDisplay">440</label>
+<script>
+const ctx = new AudioContext();
+ctx.suspend();
+
+const osc = new OscillatorNode(ctx);
+const gain = new GainNode(ctx);
+
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.start();
+
+const slider = document.querySelector("#freq");
+slider.addEventListener("input", () => {
+    ctx.resume();
+    osc.frequency.value = Number(slider.value);
+    document.querySelector("freqDisplay").textContent = slider.value;
+
+})
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <title>ARRRGH!</title>
+    </head>
+<body>
+
+    <input id = "gain" type="range" min="0" max="1" step="0.01" value="0.2"><label id="gainDisplay">0.2</label>
+    <input id = "freq" type="range" min ="100" max = "1000" value="500"><label id = "freqDisplay">440</label>
+    <script>
+        const ctx = new AudioContext();
+        ctx.suspend();
+
+        const osc = new OscillatorNode(ctx);
+        const gain = new GainNode(ctx);
+        gain.gain.value = 0.2;
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+
+        const slider1 = document.querySelector("#gain");
+        slider1.addEventListener("input", () => {
+            ctx.resume();
+        gain.gain.value = Number(slider1.value);
+        document.querySelector("gainDisplay").textContent = slider1.value;
+    });
+
+
+        const slider2 = document.querySelector("#freq");
+        slider2.addEventListener("input", () => {
+        ctx.resume();
+        osc.frequency.value =  Number(slider2.value);
+        document.querySelector("freqDisplay").textContent = slider2.value;
+        });
+    </script>
+
+    </body>
+    </html>
