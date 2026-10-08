@@ -1,31 +1,153 @@
-<!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta charset = "UTF-8">
-        <title>ARRRGH!</title>
-    </head>
-<body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ARRRGH!</title>
+  </head>
+  <body>
+    <input id="gain1" type="range" min="0" max="1" step="0.01" value="0" />
+    <label id="gainDisplay1">gain1</label>
 
-    <input id = "gain" type="range" min="0" max="1" step="0.01" value="0.2"><label id="gainDisplay">0.2</label>
+    <input id="gain2" type="range" min="0" max="1" step="0.01" value="0" />
+    <label id="gainDisplay2">gain2</label>
+
+    <input id="gain3" type="range" min="0" max="1" step="0.01" value="0" />
+    <label id="gainDisplay3">gain3</label>
+
+    <input id="gain4" type="range" min="0" max="1" step="0.01" value="0" />
+    <label id="gainDisplay4">gain4</label>
+
     <script>
-        const ctx = new AudioContext();
-        ctx.suspend();
+      const ctx = new AudioContext();
+      ctx.suspend();
 
-        const osc = new OscillatorNode(ctx);
-        const gain = new GainNode(ctx);
-        gain.gain.value = 0.2;
+      const osc1 = new OscillatorNode(ctx);
+      let freq1 = 100;
+      osc1.type = "sine";
+      osc1.frequency.value = freq1;
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
+      const osc2 = new OscillatorNode(ctx);
+      osc2.type = "sine";
+      osc2.frequency.value = freq1 + 100;
 
-        const slider = document.querySelector("#gain");
-        slider.addEventListener("input", () => {
-            ctx.resume();
-        gain.gain.value = Number(slider.value);
-        document.querySelector("gainDisplay").textContent = slider.value;
-    });
+      const osc3 = new OscillatorNode(ctx);
+      osc3.type = "sine";
+      osc3.frequency.value = freq1 + 200;
+
+      const gain1 = new GainNode(ctx);
+      gain1.gain.value = 0;
+
+      osc1.connect(gain1);
+      osc2.connect(gain1);
+      osc3.connect(gain1);
+      gain1.connect(ctx.destination);
+
+      osc1.start();
+      osc2.start();
+      osc3.start();
+
+      const slider1 = document.querySelector("#gain1");
+      slider1.addEventListener("input", () => {
+        ctx.resume();
+        gain1.gain.value = Number(slider1.value) * 0.1;
+        document.querySelector("#gainDisplay1").textContent = slider1.value;
+      });
+
+      const osc4 = new OscillatorNode(ctx);
+      let freq2 = 400;
+      osc4.type = "sine";
+      osc4.frequency.value = freq2;
+
+      const osc5 = new OscillatorNode(ctx);
+      osc5.type = "sine";
+      osc5.frequency.value = freq2 + 100;
+
+      const osc6 = new OscillatorNode(ctx);
+      osc6.type = "sine";
+      osc6.frequency.value = freq2 + 200;
+
+      const gain2 = new GainNode(ctx);
+      gain2.gain.value = 0;
+
+      osc4.connect(gain2);
+      osc5.connect(gain2);
+      osc6.connect(gain2);
+      gain2.connect(ctx.destination);
+
+      osc4.start();
+      osc5.start();
+      osc6.start();
+
+      const slider2 = document.querySelector("#gain2");
+      slider2.addEventListener("input", () => {
+        ctx.resume();
+        gain2.gain.value = Number(slider2.value) * 0.1;
+        document.querySelector("#gainDisplay2").textContent = slider2.value;
+      });
+
+      const osc7 = new OscillatorNode(ctx);
+      let freq3 = 700;
+      osc7.type = "sine";
+      osc7.frequency.value = freq3;
+
+      const osc8 = new OscillatorNode(ctx);
+      osc8.type = "sine";
+      osc8.frequency.value = freq3 + 100;
+
+      const osc9 = new OscillatorNode(ctx);
+      osc9.type = "sine";
+      osc9.frequency.value = freq3 + 200;
+
+      const gain3 = new GainNode(ctx);
+      gain3.gain.value = 0;
+
+      osc7.connect(gain3);
+      osc8.connect(gain3);
+      osc9.connect(gain3);
+      gain3.connect(ctx.destination);
+
+      osc7.start();
+      osc8.start();
+      osc9.start();
+
+      const slider3 = document.querySelector("#gain3");
+      slider3.addEventListener("input", () => {
+        ctx.resume();
+        gain3.gain.value = Number(slider3.value) * 0.1;
+        document.querySelector("#gainDisplay3").textContent = slider3.value;
+      });
+
+      const osc10 = new OscillatorNode(ctx);
+      let freq4 = 1000;
+      osc10.type = "sine";
+      osc10.frequency.value = freq4;
+
+      const osc11 = new OscillatorNode(ctx);
+      osc11.type = "sine";
+      osc11.frequency.value = freq4 + 100;
+
+      const osc12 = new OscillatorNode(ctx);
+      osc12.type = "sine";
+      osc12.frequency.value = freq4 + 200;
+
+      const gain4 = new GainNode(ctx);
+      gain4.gain.value = 0;
+
+      osc10.connect(gain4);
+      osc11.connect(gain4);
+      osc12.connect(gain4);
+      gain4.connect(ctx.destination);
+
+      osc10.start();
+      osc11.start();
+      osc12.start();
+
+      const slider4 = document.querySelector("#gain4");
+      slider4.addEventListener("input", () => {
+        ctx.resume();
+        gain4.gain.value = Number(slider4.value) * 0.1;
+        document.querySelector("#gainDisplay4").textContent = slider4.value;
+      });
     </script>
-
-    </body>
-    </html>
+  </body>
+</html>
